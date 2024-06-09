@@ -1,0 +1,47 @@
+# Seismic Phase Arrival Clicking Engine (ClickPhase)
+
+Theresa Sawi, (c) 2024
+
+Please cite: Sawi, T., "ClickPhase: A Seismic Phase Arrival Clicking Engine" (2024), archivX.org/0000000
+
+This application starts an interface that allows the user to manually select the relative phase arrival of an earthquake by clicking on a waveform from file.
+The interface is loaded in your web browser useing the ```bokeh serve --show``` command, and the timing of each click is appended to a csv file.
+The waveform is selected by putting its complete path as the only entry in an input file.
+Keep track of the picked files by "tagging" them by color in Finder. To do this, right-click the file, and select a colored dot. Green means "complete", yellow means "looked at but unsure."
+
+Please note: This code is specific for the Plate Boundary Observatory borehole strain meter station PB.B918 channel LH1, which samples at 1 Hz. Other sampling rates will need to be accounted for.
+Please note: You must install Bokeh in your working environment by executing ```conda install bokeh --yes``` in Terminal. Alternatively, you may create a new environment by running: ```conda env create -f environment.yml```
+
+----------------------------------------------------------------------------------------------------
+
+### Directory tree:
+├── README.yaml
+├── data
+│   └── test
+│       └── wf1.csv
+├── results
+│   ├── figures
+│   └── picks
+│       ├── pick_times_PP.csv
+│       └── pick_times_test.csv
+├── src
+│   ├── ClickPhase.py
+│   ├── input.csv
+│   └── waveform_click_test.py
+├── waveform_click2.py
+└── waveform_click_test.py
+
+----------------------------------------------------------------------------------------------------
+
+### User instructions:
+
+  1. In a text editor, open the input file at './src/input.csv'.
+  2. In Finder, navigate to './data/RC_LH1/'. Right click the waveform file, then hold 'option' and click "copy '....' as Pathname", then paste in input.csv. This should be the only line in the input file.
+  3. In Terminal, navigate to './src' if needed, and execute ```bokeh serve --show ClickPhase.py```
+  4. Your browser should open a window showing the waveform. Zoom in by selecting the zoom box button on the left side of the figure, and clicking and holding around P-wave arrival.
+  5. Click where you think the P-wave arrival is. You can click multiple times, and each relative timestamp, along with the waveform's filepath, will be appended to the file '../results/picks/pick_times_PP.csv'.
+  6. If you're unsure of an arrival, put a yellow tag next to the file in Finder.
+  7. If you make a very bad pick, you can manually remove it by opening 'pick_times_PP.csv' in a text editor and deleting the line(s).
+  8. Once you are satisfied with your pick, go back to Terminal and "Ctrl-C" to close the application.
+  9. Tag the waveform file in './data/RC_LH1/' as "complete/green" or "unsure/yellow".
+  10. Update './src/input.csv' to the next file in './data/RC_LH1/', and repeat for all files.
