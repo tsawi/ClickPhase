@@ -1,0 +1,9 @@
+name: clickphase
+channels:
+  - conda-forge
+dependencies:
+  - bokeh
+  - obspy
+  - numpy
+  - matplotlib
+  - pandas
