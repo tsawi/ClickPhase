@@ -6,10 +6,15 @@ from bokeh.io import curdoc
 from bokeh.events import Tap
 import csv
 from datetime import datetime
+import os
+from pathlib import Path
 
 # Function to append click time to CSV file
 def append_click_time_to_csv(x, waveform_filename):
-    with open('../results/picks/pick_times.csv', mode='a', newline='') as file:
+
+    file_path = f"../results/picks/PB.B918/{waveform_filename.split('/')[-1]}"
+
+    with open(file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([waveform_filename, x])
 
